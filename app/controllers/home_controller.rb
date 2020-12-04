@@ -1,5 +1,4 @@
 class HomeController < ApplicationController
-
   def top
   end
 
@@ -11,5 +10,4 @@ class HomeController < ApplicationController
 
   def about
   end
-  
 end

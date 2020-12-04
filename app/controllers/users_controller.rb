@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
-
   before_action :authenticate_user!
-  before_action :ensure_correct_user, {only: [:edit, :update]}
+  before_action :ensure_correct_user, { only: [:edit, :update] }
 
   def index
     @users = User.all
@@ -20,7 +19,7 @@ class UsersController < ApplicationController
   end
 
   def ensure_correct_user
-    if current_user.id !=  params[:id].to_i
+    if current_user.id != params[:id].to_i
       flash[:notice] = "権限がありません"
       redirect_to user_path(current_user.id)
     end
@@ -29,16 +28,15 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
-    redirect_to user_path(@user.id), notice: 'User was successfully updated!'
+      redirect_to user_path(@user.id), notice: 'User was successfully updated!'
     else
       render 'edit'
     end
   end
 
   private
+
   def user_params
     params.require(:user).permit(:introduction, :profile_image, :name,)
   end
-
-
 end

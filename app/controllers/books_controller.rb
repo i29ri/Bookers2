@@ -1,9 +1,6 @@
 class BooksController < ApplicationController
-
   before_action :authenticate_user!
-  before_action :ensure_correct_user, {only: [:edit, :update, :destroy]}
-
-
+  before_action :ensure_correct_user, { only: [:edit, :update, :destroy] }
 
   def index
     @books = Book.all
@@ -27,15 +24,15 @@ class BooksController < ApplicationController
   end
 
   def show
-    @book = Book.find(params[:id])    
+    @book = Book.find(params[:id])
     @book_new = Book.new
+    @book_comment = BookComment.new
+    @book_comments = BookComment.all
   end
 
   def edit
     @book = Book.find(params[:id])
   end
-
-
 
   def update
     @book = Book.find(params[:id])
@@ -55,17 +52,14 @@ class BooksController < ApplicationController
   private
 
   def ensure_correct_user
-  @book = Book.find(params[:id])
-  if @book.user_id != current_user.id
-    flash[:notice] = "権限がありません"
-    redirect_to books_path
-  end
+    @book = Book.find(params[:id])
+    if @book.user_id != current_user.id
+      flash[:notice] = "権限がありません"
+      redirect_to books_path
+    end
   end
 
   def book_params
     params.require(:book).permit(:title, :body)
   end
-
-
-
 end
