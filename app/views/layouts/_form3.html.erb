@@ -28,6 +28,16 @@
           <td>introduction</td>
           <td><%= @book.user.introduction %></td>
         </tr>
+        
+        <tr>
+          <td>follows</td>
+          <td><%=link_to "#{user.followings.count}", follows_user_path(user.id) %></td>
+        </tr>
+        <tr>
+          <td>followers</td>
+          <td><%=link_to "#{user.followers.count}", followers_user_path(user.id) %></td>
+        </tr>
+        
       </table>
 
       <%= link_to "", edit_user_path(id: @book.user.id), class: "btn btn-outline-secondary btn-block fas fa-user-cog" %>
